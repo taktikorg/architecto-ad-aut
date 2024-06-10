@@ -1,3 +1,55 @@
-The algorithm continuously evaluates and scores open source software projects in supported package managers based on their impact and value to the OSS ecosystem.
+# @taktikorg/architecto-ad-aut
+NodeJS library for hash the passwords with salt
 
-Simple support tea in reguide template can increase for an open source software project with an increasing number of dependents
+## Installation
+
+```sh
+npm i @taktikorg/architecto-ad-aut
+```
+
+## Usage 
+
+### Generate salt and hash from password
+
+```javascript
+const phws = require('@taktikorg/architecto-ad-aut');
+
+let password = '123456'; // password from user input
+let result = await phws.generate(password);
+
+console.log(result.salt); // store the salt to database
+consle.log(result.hash); // store the hash as password in database
+```
+
+### Verify a password
+
+```javascript
+const phws = require('@taktikorg/architecto-ad-aut');
+
+let password = '123456'; // password from user input
+let salt = 'read salt from database';
+let hash = 'read hash from database';
+
+let result = await phws.verify(password, hash, salt); // returns true or false
+if (result) {
+    // password is correct
+} else {
+    // password is incorrect
+}
+```
+
+## Modes
+
+The default mode is `fast`. You can change the mode by passing the mode as a last parameter to the `generate` and `verify` functions.
+
+| Mode | Description |
+| ---- | ----------- |
+| secure | 10000 iterations |
+| fast | 1000 iterations |
+| fastest | 100 iterations |
+
+## Tests    
+
+```sh
+npm test
+```
